@@ -5,17 +5,24 @@
  *     struct ListNode *next;
  * };
  */
-struct ListNode* swapPairs(struct ListNode* head) {
-    if(head == NULL || head -> next == NULL) 
-        {
-            return head;
-        }
-            
-        struct ListNode* temp; // temporary pointer to store head -> next
-        temp = head->next; // give temp what he want
-        
-        head->next = swapPairs(head->next->next); // changing links
-        temp->next = head; // put temp -> next to head
-        
-        return temp; // now after changing links, temp act as our head
+ struct ListNode* swapPairs(struct ListNode* head) {
+
+    struct ListNode dummy;
+    dummy.next = head;
+
+    struct ListNode* prev = &dummy;
+
+    while(prev->next != NULL && prev->next->next != NULL){
+
+        struct ListNode* a = prev->next;
+        struct ListNode* b = a->next;
+
+        prev->next = b;
+        a->next = b->next;
+        b->next = a;
+
+        prev = a;
+    }
+
+    return dummy.next;
 }
