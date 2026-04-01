@@ -1,11 +1,34 @@
-class Solution(object):
-    def firstMatchingIndex(self, s):
-        left, right = 0, len(s) - 1
+#include <stdio.h>
 
-        while left <= right:
-            if s[left] == s[right]:
-                return left
-            left += 1
-            right -= 1
+char firstMatchingChar(char* s) {
+    int left = 0;
+    int right = 0;
 
-        return -1
+    // find length
+    while (s[right] != '\0') {
+        right++;
+    }
+    right--; // last index
+
+    while (left < right) {
+        if (s[left] == s[right]) {
+            return s[left];
+        }
+        left++;
+        right--;
+    }
+
+    return '\0'; // no match
+}
+
+int main() {
+    char s[] = "abca";
+    char result = firstMatchingChar(s);
+
+    if (result != '\0')
+        printf("%c\n", result);
+    else
+        printf("No match\n");
+
+    return 0;
+}
